@@ -1,5 +1,4 @@
 import {readFile, stat} from 'node:fs/promises';
-import { existsSync } from 'node:fs';
 import path from 'path';
 
 const readLogFile = async (filePath)=>{
@@ -10,11 +9,7 @@ const readLogFile = async (filePath)=>{
     const ext = path.extname(resolved);
     if(ext !== '.log'){
         throw new Error(`Invalid file extension "${ext}". Expected ".log"`);
-    }
-
-    if(!existsSync(resolved)){
-        throw new Error(`File not found: ${resolved}`);
-    }
+    }    
     const stats = await stat(resolved);
     if(!stats.isFile()){
         throw new Error(`Path is not a regular file: ${resolved}`);
